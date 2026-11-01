@@ -55,7 +55,7 @@ def render():
         sudut = st.slider("Sudut Bidang (°)", 0, 89, 30)
         mu = st.slider("Koefisien Gesek (μ)", 0.0, 1.0, 0.2, 0.05)
         F_luar = st.number_input("Gaya Luar Ke Atas Bidang (N)", min_value=0.0, value=0.0)
-        g = st.number_input("Gravitasi (m/s²)", min_value=0.1, value=9.8)
+        g = st.number_input("Gravitasi (m/s²)", min_value=0.1, value=9.8, key="dinamika_g")
 
     N , w_sejajar = hitung_gaya(m, sudut, g)
     status, f_gesek, a = tentukan_gerak(w_sejajar,F_luar, N, mu, m)
@@ -69,6 +69,3 @@ def render():
         c4.metric("Status", status)
 
         st.plotly_chart(buat_grafik(t, v), use_container_width=True)
-        
-
-    

@@ -59,7 +59,7 @@ def render():
         v0 = st.slider("Kecepatan Awal (m/s)", 1, 100, 30)
         sudut = st.slider("Sudut Tembak (°)", 1, 89, 45)
         h0 = st.number_input("Ketinggian Awal (m)", min_value=0.0, value=0.0)
-        g = st.number_input("Gravitasi (m/s²)", min_value=0.1, value=9.8)
+        g = st.number_input("Gravitasi (m/s²)", min_value=0.1, value=9.8, key="kinematika_g")
 
     vx, vy = hitung_komponen(v0, sudut)
     t_total = hitung_waktu_terbang(vy, h0, g)
