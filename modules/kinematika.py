@@ -45,6 +45,7 @@ def buat_grafik(x, y) :
         yaxis_title = "Tinggi (M)",
         title = "Lindasan Gerak Parabola"
     )
+    fig.update_yaxes(scaleanchor="x", scaleratio=1)
     return fig
 
 
