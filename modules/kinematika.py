@@ -34,16 +34,17 @@ def hitung_jarak_maks(vx, t_total):
 def fungsi_buat_data_lintasan(vx, vy, h0, g, t_total, jumlah_titik=200):
     t = np.linspace(0, t_total, jumlah_titik)
     x = vx * t
-    y = h0 + vy * t -0.5 * g * t**2
+    y = h0 + vy * t - 0.5 * g * t**2
     return t, x, y
 
-def buat_grafik(x, y) :
+
+def buat_grafik(x, y):
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=x, y=y, mode="lines", name="Lintasan"))
     fig.update_layout(
-        xaxis_title = "Jarak (m)",
-        yaxis_title = "Tinggi (m)",
-        title = "Lintasan Gerak Parabola"
+        xaxis_title="Jarak (m)",
+        yaxis_title="Tinggi (m)",
+        title="Lintasan Gerak Parabola",
     )
     fig.update_yaxes(scaleanchor="x", scaleratio=1)
     return fig
@@ -51,35 +52,45 @@ def buat_grafik(x, y) :
 
 # -------------------- TAMPILAN ----------------------
 
+
 def render():
     st.header("Kinematika : Gerak Parabola")
 
+    with st.expander("Konsep singkat"):
+        st.write(
+            "Gerak parabola adalah gabungan dua gerak: "
+            "gerak lurus beraturan pada sumbu x (kecepatan tetap) dan "
+            "gerak lurus berubah beraturan pada sumbu y "
+            "(dipengaruhi gravitasi)."
+        )
+
     kiri, kanan = st.columns([1, 2])
 
-    with kiri :
+    with kiri:
         v0 = st.slider("Kecepatan Awal (m/s)", 1, 100, 30)
         sudut = st.slider("Sudut Tembak (°)", 1, 89, 45)
         h0 = st.number_input("Ketinggian Awal (m)", min_value=0.0, value=0.0)
-        g = st.number_input("Gravitasi (m/s²)", min_value=0.1, value=9.8, key="kinematika_g")
+        g = st.number_input(
+            "Gravitasi (m/s²)", min_value=0.1, value=9.8, key="kinematika_g"
+        )
 
     vx, vy = hitung_komponen(v0, sudut)
     t_total = hitung_waktu_terbang(vy, h0, g)
     h_maks = hitung_tinggi_maks(vy, h0, g)
     jarak = hitung_jarak_maks(vx, t_total)
-    _, x, y= fungsi_buat_data_lintasan(vx, vy, h0, g, t_total)
+    _, x, y = fungsi_buat_data_lintasan(vx, vy, h0, g, t_total)
 
-    with kanan :
+    with kanan:
         c1, c2, c3 = st.columns(3)
         c1.metric("Waktu terbang", f"{t_total:.2f} s")
         c2.metric("Tinggi maks", f"{h_maks:.2f} m")
         c3.metric("Jarak maks", f"{jarak:.2f} m")
-        
+
         st.latex(r"x = v_0 \cos\theta \cdot t")
         st.latex(r"y=h_0 + v_0 \sin\theta \cdot t -\tfrac{1}{2} g t^2")
         st.latex(
             rf"t_{{total}} = \frac{{v_y + \sqrt{{v_y^2 + 2 g h_0}}}}{{g}}"
             rf" = {t_total:.2f} \ \text{{s}}"
         )
-        
 
         st.plotly_chart(buat_grafik(x, y), use_container_width=True)

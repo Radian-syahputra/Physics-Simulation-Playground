@@ -7,8 +7,8 @@ st.set_page_config(
     layout="wide",
 )
 
-st.title("⚛️ Physics Simulation Playground")
-st.caption("Simulasi Fisika Bermakna Anjayy")
+st.title("Physics Simulation Playground")
+st.caption("Simulasi Fisika Kelompok 3")
 
 tabs = st.tabs(["Satuan", "Kinematika", "Dinamika", "Energi", "Termodinamika"])
 

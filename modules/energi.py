@@ -55,6 +55,14 @@ def buat_grafik(sudut, EP, EK, EM_arr):
 def render():
     st.header("Energi")
 
+    with st.expander("Konsep singkat"):
+        st.write(
+            "Pada bandul, energi potensial (m g h) berubah menjadi energi kinetik "
+            "(½ m v²) saat bandul turun. Tanpa gesekan, energi mekanik "
+            "(EP + EK) selalu tetap. Jika ada gesekan, sebagian energi mekanik hilang, "
+            "sehingga kecepatan di titik terendah lebih kecil."
+        )
+
     kiri, kanan = st.columns([1, 2])
 
     with kiri:

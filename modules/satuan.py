@@ -99,6 +99,13 @@ def format_dimensi(d):
 def render():
     st.header("Besaran & Satuan")
 
+    with st.expander("Konsep singkat"):
+        st.write(
+            "Besaran fisika selalu punya satuan. Konversi dilakukan lewat satuan SI "
+            "sebagai perantara. Cek dimensi dipakai untuk menguji apakah sebuah rumus "
+            "masuk akal: kedua ruas harus punya dimensi yang sama."
+        )
+
     sub1, sub2, sub3 = st.tabs(
         ["Konverter Satuan", "Tabel Besaran", "Cek Dimensi Rumus"]
     )
@@ -141,37 +148,34 @@ def render():
                 )
 
     # ------------ TABEL BESARAN ------------
-    with sub2 :
+    with sub2:
         st.write("Besaran Pokok Dan Turunan Beserta Dimensinya")
         df = pd.DataFrame(
             BESARAN, columns=["Besaran", "Simbol", "Satuan SI", "Dimensi"]
         )
-        st.dataframe(df,  width="stretch", hide_index=True)
+        st.dataframe(df, width="stretch", hide_index=True)
 
-    # ----------- CEK DIMENSI ------------- 
-    with sub3 : 
+    # ----------- CEK DIMENSI -------------
+    with sub3:
         st.write(
-             "Uji apakah sebuah rumus konsisten secara dimensi. "
-             "Contoh: apakah **F = m · a** benar?"
+            "Uji apakah sebuah rumus konsisten secara dimensi. "
+            "Contoh: apakah **F = m · a** benar?"
         )
         c1, c2 = st.columns(2)
-        with c1 :
+        with c1:
             ruas_kiri = st.selectbox("Ruas Kiri", list(DIMENSI.keys()), index=5)
-        with c2 : 
+        with c2:
             st.write("Ruas Kanan = Hasil Kali Dari : ")
             faktor1 = st.selectbox("Besaran 1", list(DIMENSI.keys()), index=1)
             faktor2 = st.selectbox("Besaran 2", list(DIMENSI.keys()), index=4)
 
         dim_kiri = DIMENSI[ruas_kiri]
-        dim_kanan = tuple(
-            a + b for a, b in zip(DIMENSI[faktor1], DIMENSI[faktor2])
-        )
-            
+        dim_kanan = tuple(a + b for a, b in zip(DIMENSI[faktor1], DIMENSI[faktor2]))
+
         st.write(f"Dimensi Ruas Kiri : **{format_dimensi(dim_kiri)}**")
         st.write(f"Dimensi Ruas Kanan : **{format_dimensi(dim_kanan)}**")
 
-        if dim_kiri == dim_kanan : 
+        if dim_kiri == dim_kanan:
             st.success("Dimensi Sama, Rumus Konsisten Secara Dimensi")
-        else : 
+        else:
             st.error("Dimensi Berbedad, Rumus Ini Gak Mungkin Benar")
-            
