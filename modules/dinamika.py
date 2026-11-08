@@ -50,7 +50,7 @@ def render():
 
     kiri, kanan = st.columns([1, 2])
 
-    with kiri :
+    with kiri:
         m = st.slider("Massa Balok (Kg)", 1, 100, 10)
         sudut = st.slider("Sudut Bidang (°)", 0, 89, 30)
         mu = st.slider("Koefisien Gesek (μ)", 0.0, 1.0, 0.2, 0.05)
@@ -61,11 +61,15 @@ def render():
     status, f_gesek, a = tentukan_gerak(w_sejajar,F_luar, N, mu, m)
     t, v = buat_data_kecepatan(a)
 
-    with kanan :
+    with kanan:
         c1, c2, c3, c4 = st.columns(4)
         c1.metric("Gaya Normal", f"{N:.2f} N")
         c2.metric("Gaya Gesek", f"{f_gesek:.2f} N")
         c3.metric("Percepatan", f"{a:.2f} m/s²")
         c4.metric("Status", status)
+
+        st.latex(r"N = m g \sin\theta")
+        st.latex(r"f_{maks} = \mu \cdot N")
+        st.latex(rf"a = \frac{{m g \sin\theta - F - f}}{{m}} = {a:.2f} \ \text{{m/s}}^2")
 
         st.plotly_chart(buat_grafik(t, v), width="stretch")
