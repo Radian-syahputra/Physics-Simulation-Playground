@@ -8,8 +8,8 @@ KONFERSI = {
         "m": 1.0,
         "km": 1000.0,
         "inci": 0.0254,
-        "kaki ": 0.3048,
-        "mill": 1609.344,
+        "kaki": 0.3048,
+        "mil": 1609.344,
     },
     "Massa (SI : kg)": {
         "mg": 1e-6,
@@ -34,7 +34,7 @@ SATUAN_SUHU = ["°C", "K", "°F"]
 BESARAN = [
     ("Panjang", "l", "meter (m)", "[L]"),
     ("Massa", "m", "kilogram (kg)", "[M]"),
-    ("Waktu", "t", "secon (s)", "[T]"),
+    ("Waktu", "t", "sekon (s)", "[T]"),
     ("Suhu", "T", "Kelvin (K)", "[Θ]"),
     ("Kecepatan", "v", "m/s", "[L][T]⁻¹"),
     ("Percepatan", "a", "m/s²", "[L][T]⁻²"),
@@ -92,7 +92,7 @@ def format_dimensi(d):
     for huruf, pangkat in zip("MLT", d):
         if pangkat != 0:
             bagian.append(f"{huruf}{str(pangkat).translate(sup)}")
-        return " ".join(bagian) if bagian else "Tidak Berdimensi"
+    return " ".join(bagian) if bagian else "Tidak Berdimensi"
 
 
 #  TAMPILAN UNTUK WEBISTE NYA
@@ -146,7 +146,7 @@ def render():
         df = pd.DataFrame(
             BESARAN, columns=["Besaran", "Simbol", "Satuan SI", "Dimensi"]
         )
-        st.dataframe(df, use_container_width=True, hide_index=True)
+        st.dataframe(df,  width="stretch", hide_index=True)
 
     # ----------- CEK DIMENSI ------------- 
     with sub3 : 
@@ -167,11 +167,11 @@ def render():
             a + b for a, b in zip(DIMENSI[faktor1], DIMENSI[faktor2])
         )
             
-        st.write(f"Dimensi Ruas Kiri : **{format_dimensi(dim_kiri)}")
-        st.write(f"Dimensi Ruas Kanan : **{format_dimensi(dim_kanan)}")
+        st.write(f"Dimensi Ruas Kiri : **{format_dimensi(dim_kiri)}**")
+        st.write(f"Dimensi Ruas Kanan : **{format_dimensi(dim_kanan)}**")
 
         if dim_kiri == dim_kanan : 
             st.success("Dimensi Sama, Rumus Konsisten Secara Dimensi")
         else : 
-            st.success("Dimensi Berbedad, Rumus Ini Gak Mungkin Benar")
+            st.error("Dimensi Berbedad, Rumus Ini Gak Mungkin Benar")
             

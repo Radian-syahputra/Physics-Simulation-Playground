@@ -68,4 +68,4 @@ def render():
         c3.metric("Percepatan", f"{a:.2f} m/s²")
         c4.metric("Status", status)
 
-        st.plotly_chart(buat_grafik(t, v), use_container_width=True)
+        st.plotly_chart(buat_grafik(t, v), width="stretch")

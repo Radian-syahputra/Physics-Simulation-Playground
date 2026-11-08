@@ -44,8 +44,8 @@ def buat_grafik(sudut, EP, EK, EM_arr):
 
     fig.update_layout(
         xaxis_title="Sudut Bandul (°)",
-        yaxis_title="Energy (J)",
-        title="Energy Bandul Dari Titik Lepas Ke Titik Terendah",
+        yaxis_title="Energi (J)",
+        title="Energi Bandul Dari Titik Lepas Ke Titik Terendah",
     )
 
     fig.update_xaxes(autorange="reversed")
@@ -69,7 +69,7 @@ def render():
         )
 
     hilang = hilang_persen / 100
-    h0, EM = hitung_energy_awal(m, L, sudut0, g)
+    _, EM = hitung_energy_awal(m, L, sudut0, g)
     sudut, EP, EK, EM_arr = hitung_kurva(m, L, sudut0, g, EM, hilang)
 
     v_maks = hitung_kecepatan(EK[-1], m)

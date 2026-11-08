@@ -41,9 +41,9 @@ def buat_grafik(x, y) :
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=x, y=y, mode="lines", name="Lintasan"))
     fig.update_layout(
-        xaxis_title = "Jarak (M)",
-        yaxis_title = "Tinggi (M)",
-        title = "Lindasan Gerak Parabola"
+        xaxis_title = "Jarak (m)",
+        yaxis_title = "Tinggi (m)",
+        title = "Lintasan Gerak Parabola"
     )
     fig.update_yaxes(scaleanchor="x", scaleratio=1)
     return fig
