@@ -66,12 +66,20 @@ def render():
     t_total = hitung_waktu_terbang(vy, h0, g)
     h_maks = hitung_tinggi_maks(vy, h0, g)
     jarak = hitung_jarak_maks(vx, t_total)
-    t, x, y= fungsi_buat_data_lintasan(vx, vy, h0, g, t_total)
+    _, x, y= fungsi_buat_data_lintasan(vx, vy, h0, g, t_total)
 
     with kanan :
         c1, c2, c3 = st.columns(3)
         c1.metric("Waktu terbang", f"{t_total:.2f} s")
         c2.metric("Tinggi maks", f"{h_maks:.2f} m")
         c3.metric("Jarak maks", f"{jarak:.2f} m")
+        
+        st.latex(r"x = v_0 \cos\theta \cdot t")
+        st.latex(r"y=h_0 + v_0 \sin\theta \cdot t -\tfrac{1}{2} g t^2")
+        st.latex(
+            rf"t_{{total}} = \frac{{v_y + \sqrt{{v_y^2 + 2 g h_0}}}}{{g}}"
+            rf" = {t_total:.2f} \ \text{{s}}"
+        )
+        
 
         st.plotly_chart(buat_grafik(x, y), use_container_width=True)
