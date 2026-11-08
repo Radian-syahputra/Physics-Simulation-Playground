@@ -80,4 +80,8 @@ def render():
         c2.metric("Energi mekanik awal", f"{EM:.2f} J")
         c3.metric("Energi hilang", f"{EM * hilang:.2f} J")
 
+        st.latex(r"E_p = m g L (1 - \cos\theta)")
+        st.latex(r"E_k = \tfrac{1}{2} m v^2")
+        st.latex(rf"E_M = E_p + E_k = {EM:.2f} \ \text{{J}}")
+
         st.plotly_chart(buat_grafik(sudut, EP, EK, EM_arr), width="stretch")
